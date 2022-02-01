@@ -1,0 +1,74 @@
+add_newline = false
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$line_break\
+$python\
+$character\
+"""
+
+[line_break]
+disabled = true
+
+[character]
+disabled = false
+error_symbol = "[✗](bold red) "
+format = "$symbol"
+success_symbol = "[➜](bold green) "
+
+[directory]
+disabled = false
+format = ":[$path]($style)[$lock_symbol]($lock_style) "
+style = "bold blue"
+
+[git_branch]
+disabled = false
+always_show_remote = true
+format = "[$symbol$branch]($style)"
+style = "bold yellow"
+symbol = ""
+
+[git_commit]
+disabled = false
+commit_hash_length = 5
+format = "[$hash]($style)[$tag]($style)"
+only_detached = false
+style = "bold yellow"
+
+[git_status]
+disabled = false
+style = "bold yellow"
+format = "[$all_status$ahead_behind]($style)"
+ahead = '↑$count '
+behind = '↓$count '
+conflicted = '=$count '
+deleted = '✗$count '
+diverged = '⇕$count '
+modified = '!$count '
+renamed = '»$count '
+staged = '+$count'
+stashed = '\$$count '
+untracked = '?$count'
+up_to_date = '✓$count '
+
+[hostname]
+disabled = false
+format = "[@$hostname]($style)"
+ssh_only = true
+style = "green bold"
+
+[username]
+disabled = false
+format = "[$user]($style)"
+show_always = true
+style_root = "red bold"
+style_user = "green bold"
+
+[python]
+format = "[$symbol$version]($style) "
+style = "bold green"
