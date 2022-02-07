@@ -10,6 +10,7 @@
 zstyle :compinstall filename '/home/horacio/.zshrc'
 autoload -Uz compinit
 compinit
+_comp_options+=(globdots)
 
 alias ls="ls --color=auto"
 alias grep='grep --color=auto'
