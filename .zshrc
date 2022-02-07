@@ -31,8 +31,8 @@ bindkey -s "^[OQ" "/"
 
 # # End of lines configured by zsh-newuser-install
 # # The following lines were added by compinstall
-# zstyle :compinstall filename '~.zshrc'
-zstyle :compinstall filename '/home/horacio/.zshrc'
+zstyle :compinstall filename '~.zshrc'
+# zstyle :compinstall filename '/home/$USER/.zshrc'
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
