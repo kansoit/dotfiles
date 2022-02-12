@@ -76,7 +76,7 @@ up_to_date = '✓$count '
 [hostname]
 disabled = false
 format = "[@$hostname]($style)"
-ssh_only = true
+ssh_only = false
 style = "green bold"
 
 [username]
