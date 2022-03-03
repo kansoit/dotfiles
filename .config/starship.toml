@@ -46,7 +46,7 @@ style = "bold blue"
 [git_branch]
 disabled = false
 always_show_remote = true
-format = "[$symbol$branch]($style)"
+format = "[$symbol$branch]($style) "
 style = "bold yellow"
 symbol = ""
 
@@ -68,9 +68,9 @@ deleted = '✗$count '
 diverged = '⇕$count '
 modified = '!$count '
 renamed = '»$count '
-staged = '+$count'
+staged = '+$count '
 stashed = '\$$count '
-untracked = '?$count'
+untracked = '?$count '
 up_to_date = '✓$count '
 
 [hostname]
