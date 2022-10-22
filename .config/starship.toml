@@ -1,4 +1,4 @@
-add_newline = false
+add_newline = true
 
 format = """
 $username\
@@ -10,6 +10,8 @@ $git_status\
 $line_break\
 $python\
 $shell\
+$shlvl\
+$sudo\
 $character\
 """
 right_format = """
@@ -31,16 +33,17 @@ disabled = true
 
 [shell]
 disabled = false
+format = "[$indicator]($style):"
 
 [character]
 disabled = false
-error_symbol = "[✗](bold red) "
+error_symbol = " [✗](bold red) "
 format = "$symbol"
-success_symbol = "[➜](bold green) "
+success_symbol = " [➜](bold green) "
 
 [directory]
 disabled = false
-format = ":[$path]($style)[$lock_symbol]($lock_style) "
+format = ":[$path]($style)[$read_only]($read_only_style) "
 style = "bold blue"
 
 [git_branch]
@@ -89,3 +92,16 @@ style_user = "green bold"
 [python]
 format = "[$symbol$version]($style) "
 style = "bold green"
+
+[sudo]
+format = "[$symbol]($style)"
+symbol = "💀" 
+style = "bold red"
+disabled = false
+
+[shlvl]
+threshold = 1
+repeat = false
+style = "bold yellow"
+format = "[$shlvl]($style)"
+disabled = false
