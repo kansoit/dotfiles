@@ -12,25 +12,26 @@ $python\
 $shell\
 $shlvl\
 $sudo\
+$fill\
+$cmd_duration $jobs $time $status\
 $line_break\
 $character
 """
-right_format = """
-$cmd_duration\
-$status
-"""
+
+[fill]
+symbol = " "
 
 [line_break]
 disabled = false
 
 [cmd_duration]
-format = " [$duration](bold yellow)"
+format = "took [$duration](bold yellow)"
 disabled = false
 
 [status]
 style = "bold yellow"
 format = '[\[$common_meaning$signal_name$maybe_int\]]($style)'
-disabled = true
+disabled = false
 
 [shell]
 disabled = false
@@ -46,6 +47,8 @@ success_symbol = " [➜](bold green) "
 disabled = false
 format = ":[$path]($style)[$read_only]($read_only_style) "
 style = "bold blue"
+truncation_length = 4
+truncation_symbol = ""
 
 [git_branch]
 disabled = false
@@ -107,4 +110,8 @@ style = "bold yellow"
 format = "[$shlvl]($style)"
 disabled = false
 
-
+[time]
+disabled = false
+style = "bold white"
+format = "[$time]($style)"
+time_format = "%F %T"
