@@ -7,17 +7,20 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-$line_break\
 $python\
 $shell\
 $shlvl\
 $sudo\
-$character\
+$line_break\
+$character
 """
 right_format = """
 $cmd_duration\
-$status\
+$status
 """
+
+[line_break]
+disabled = false
 
 [cmd_duration]
 format = " [$duration](bold yellow)"
@@ -26,9 +29,6 @@ disabled = false
 [status]
 style = "bold yellow"
 format = '[\[$common_meaning$signal_name$maybe_int\]]($style)'
-disabled = true
-
-[line_break]
 disabled = true
 
 [shell]
@@ -105,3 +105,5 @@ repeat = false
 style = "bold yellow"
 format = "[$shlvl]($style)"
 disabled = false
+
+
