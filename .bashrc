@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    (xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -105,6 +105,16 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# My Own Aliases
+function take {
+   mkdir -p $1
+   cd $1
+}
+
+# Must install trash-cli
+alias rm=trash
+alias c=clear
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -118,5 +128,9 @@ fi
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
+
+bind "TAB:menu-complete"
+bind "set show-all-if-ambiguous on"
+# set show-all-if-ambiguous on
 
 eval "$(starship init bash)"
