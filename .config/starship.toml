@@ -2,21 +2,8 @@ add_newline = false
 command_timeout = 1000
 
 format = """
-$username\
-$hostname\
-$directory\
-$git_branch\
-$git_state\
-$git_status\
-$python\
-$shell\
-$shlvl\
-$sudo\
-$fill\
-$cmd_duration $jobs $time $status\
-$line_break\
-$character
-"""
+[╭](bold green)$username$hostname$directory$git_branch$git_state$git_status$python$shell$shlvl$fill$status$sudo$cmd_duration$jobs$time
+[╰▸](bold green) """
 
 [fill]
 symbol = " "
@@ -25,27 +12,22 @@ symbol = " "
 disabled = false
 
 [cmd_duration]
-format = "took [$duration](bold yellow)"
+format = "[$duration](bold yellow) "
 disabled = false
 
 [status]
-style = "bold yellow"
-format = '[\[$common_meaning$signal_name$maybe_int\]]($style)'
+symbol = "[✗](bold red)"
+success_symbol = "[√](bold green)"
+format = '[$symbol]($style) '
 disabled = false
 
 [shell]
 disabled = false
 format = "[$indicator]($style):"
 
-[character]
-disabled = false
-error_symbol = " [✗](bold red) "
-format = "$symbol"
-success_symbol = " [➜](bold green) "
-
 [directory]
 disabled = false
-format = ":[$path]($style)[$read_only]($read_only_style) "
+format = ":[$path]($style) "
 style = "bold blue"
 truncation_length = 4
 truncation_symbol = ""
@@ -98,8 +80,8 @@ format = "[$symbol$version]($style) "
 style = "bold green"
 
 [sudo]
-format = "[$symbol]($style)"
-symbol = "💀" 
+format = "[$symbol]($style) "
+symbol = "S↑" 
 style = "bold red"
 disabled = false
 
@@ -114,4 +96,5 @@ disabled = false
 disabled = false
 style = "bold white"
 format = "[$time]($style)"
-time_format = "%F %T"
+time_format = "%T"
+# time_format = "%F %T"
