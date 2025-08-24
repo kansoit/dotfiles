@@ -2,8 +2,8 @@ add_newline = false
 command_timeout = 1000
 
 format = """
-[╭](bold green)$username$hostname$directory$git_branch$git_state$git_status$python$shell$shlvl$fill$status$sudo$cmd_duration$jobs$time
-[╰▸](bold green) """
+(bold green)$username$hostname$directory$git_branch$git_state$git_status$python$shell$shlvl$fill$status$sudo$cmd_duration$jobs$time
+[#](bold green) """
 
 [fill]
 symbol = " "
