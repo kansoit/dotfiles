@@ -88,7 +88,7 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
 
@@ -105,15 +105,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# My Own Aliases
-function take {
-   mkdir -p $1
-   cd $1
-}
-
-# Must install trash-cli
+# My Alias
 alias rm=trash
-alias c=clear
+alias duf='duf --only-fs ext4,vfat,tmpfs,ntfs3'
+alias mkdir='mkdir -pv'
+alias kubectl='microk8s kubectl'
+alias df='df -Th'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -125,12 +122,14 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
 
 bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 # set show-all-if-ambiguous on
 
 eval "$(starship init bash)"
+
+export PATH=~/.local/bin:$PATH
+export LIBVIRT_DEFAULT_URI='qemu:///system'
+
+complete -C /usr/bin/terraform terraform
