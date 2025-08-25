@@ -119,8 +119,8 @@ alias mkdir='mkdir -pv'
 alias kubectl='microk8s kubectl'
 alias df='df -Th'
 
-# Configuración de fzf si está instalado
-if command -v fzf &> /dev/null; then
+# Configuración de fzf y fd
+if command -v fzf &> /dev/null && command -v fd &> /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f'
 fi
 
