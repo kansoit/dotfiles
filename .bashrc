@@ -14,10 +14,15 @@ HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+shopt -s cmdhist
+shopt -s lithist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+
+# Sincronización de historial en tiempo real
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -106,11 +111,18 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # My Alias
-alias rm=trash
+if command -v trash &> /dev/null; then
+  alias rm='trash'
+fi
 alias duf='duf --only-fs ext4,vfat,tmpfs,ntfs3'
 alias mkdir='mkdir -pv'
 alias kubectl='microk8s kubectl'
 alias df='df -Th'
+
+# Configuración de fzf si está instalado
+if command -v fzf &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='fd --type f'
+fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -127,7 +139,9 @@ bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 # set show-all-if-ambiguous on
 
-eval "$(starship init bash)"
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)"
+fi
 
 export PATH=~/.local/bin:$PATH
 export LIBVIRT_DEFAULT_URI='qemu:///system'
