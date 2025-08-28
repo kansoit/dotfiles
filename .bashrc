@@ -118,6 +118,7 @@ alias duf='duf --only-fs ext4,vfat,tmpfs,ntfs3'
 alias mkdir='mkdir -pv'
 alias kubectl='microk8s kubectl'
 alias df='df -Th'
+alias hst="history | fzf --tac"
 
 # Configuración de fzf y fd
 if command -v fzf &> /dev/null && command -v fd &> /dev/null; then
