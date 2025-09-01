@@ -131,6 +131,12 @@ if command -v fzf &> /dev/null && command -v fd &> /dev/null; then
   export FZF_DEFAULT_COMMAND='fd --type f'
 fi
 
+# Configurar nano como editor por defecto, solo si está instalado
+if command -v nano >/dev/null 2>&1; then
+    export EDITOR=nano
+    export VISUAL=nano
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
