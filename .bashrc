@@ -98,8 +98,13 @@ alias la='ls -A'
 alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# long command; alert
+
+# Definir "alert" solo si hay entorno gráfico (X11 o Wayland)
+if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; }; then
+    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" \
+    "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -119,6 +124,7 @@ alias mkdir='mkdir -pv'
 alias kubectl='microk8s kubectl'
 alias df='df -Th'
 alias hst="history | fzf --tac"
+alias fd=fdfind
 
 # Configuración de fzf y fd
 if command -v fzf &> /dev/null && command -v fd &> /dev/null; then
