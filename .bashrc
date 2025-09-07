@@ -156,7 +156,7 @@ if command -v starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
-export PATH=$HOME/.local/bin:/snap/bin:$PATH
+export PATH=$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 complete -C /usr/bin/terraform terraform
