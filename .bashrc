@@ -115,16 +115,29 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-# My Alias
+alias mkdir='mkdir -pv'
+alias alias df='df -Th'
+
 if command -v trash &> /dev/null; then
   alias rm='trash'
 fi
-alias duf='duf --only-fs ext4,vfat,tmpfs,ntfs3'
-alias mkdir='mkdir -pv'
-alias kubectl='microk8s kubectl'
-alias df='df -Th'
-alias hst="history | fzf --tac"
-alias fd=fdfind
+
+if command -v microk8s &> /dev/null; then
+  alias kubectl='microk8s kubectl'
+fi
+
+if command -v fzf &> /dev/null; then
+  alias hst="history | fzf --tac"
+fi
+
+if command -v fdfind &> /dev/null; then
+  alias alias fd=fdfind
+fi
+
+if command -v micro &> /dev/null; then
+  alias alias m=micro
+fi
+
 
 # Configuración de fzf y fd
 if command -v fzf &> /dev/null && command -v fd &> /dev/null; then
