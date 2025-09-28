@@ -116,7 +116,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 alias mkdir='mkdir -pv'
-alias alias df='df -Th'
+alias df='df -Th'
 
 if command -v trash &> /dev/null; then
   alias rm='trash'
@@ -131,11 +131,11 @@ if command -v fzf &> /dev/null; then
 fi
 
 if command -v fdfind &> /dev/null; then
-  alias alias fd=fdfind
+  alias fd=fdfind
 fi
 
 if command -v micro &> /dev/null; then
-  alias alias m=micro
+  alias m=micro
 fi
 
 
