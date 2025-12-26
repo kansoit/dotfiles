@@ -1,0 +1,31 @@
+window-theme = system
+window-decoration = auto
+
+# --- THEME
+#theme = 0x96f
+theme = Adwaita Dark
+
+# --- FONT
+font-family = Inconsolata NFM
+font-size = 14
+
+# --- WINDOW / LAYOUT
+window-subtitle = working-directory
+window-padding-x = 18
+window-padding-y = 14
+window-padding-balance = true
+
+# --- LOOK
+background-opacity = 0.95
+
+# --- UX / SAFETY
+scrollback-limit = 200000
+clipboard-paste-protection = true
+clipboard-paste-bracketed-safe = true
+confirm-close-surface = false
+
+# --- SHELL INTEGRATION
+shell-integration = detect
+
+# SSH
+shell-integration-features = ssh-terminfo,ssh-env,cursor,sudo
