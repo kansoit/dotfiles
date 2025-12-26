@@ -118,29 +118,56 @@ fi
 alias mkdir='mkdir -pv'
 alias df='df -Th'
 
-if command -v trash &> /dev/null; then
+if command -v trash &> /dev/null 2>&1; then
   alias rm='trash'
 fi
 
-if command -v microk8s &> /dev/null; then
+if command -v microk8s &> /dev/null 2>&1; then
   alias kubectl='microk8s kubectl'
 fi
 
-if command -v fzf &> /dev/null; then
+if command -v fzf &> /dev/null 2>&1; then
   alias hst="history | fzf --tac"
 fi
 
-if command -v fdfind &> /dev/null; then
+if command -v fdfind &> /dev/null 2>&1; then
   alias fd=fdfind
 fi
 
-if command -v micro &> /dev/null; then
+if command -v micro &> /dev/null 2>&1; then
   alias m=micro
 fi
 
+if command -v git > /dev/null 2>&1; then
+    # Estado y Log (Visuales)
+    alias gst='git status -sb'
+    alias gl='git log --oneline --graph --decorate --all'
+    
+    # Flujo de cambios
+    alias ga='git add'
+    alias gaa='git add -A'
+    alias gd='git diff'
+    
+    # Commits
+    alias gc='git commit'
+    alias gcm='git commit -m'
+    alias gca='git commit --amend'
+    
+    # Ramas y Navegación
+    alias gb='git branch'
+    alias gco='git checkout'
+    alias gsw='git switch'
+    
+    # Sincronización
+    alias gp='git push'
+    alias gpl='git pull'
+    
+    # Utilidad
+    alias gclean='git clean -fd'
+fi
 
 # Configuración de fzf y fd
-if command -v fzf &> /dev/null && command -v fd &> /dev/null; then
+if command -v fzf &> /dev/null 2>&1 && command -v fd &> /dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='fd --type f'
 fi
 
@@ -165,7 +192,7 @@ bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 # set show-all-if-ambiguous on
 
-if command -v starship &> /dev/null; then
+if command -v starship &> /dev/null 2>&1; then
   eval "$(starship init bash)"
 fi
 
