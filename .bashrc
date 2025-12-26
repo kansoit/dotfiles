@@ -200,3 +200,8 @@ export PATH=$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 complete -C /usr/bin/terraform terraform
+
+# --- Node Version Manager (NVM) ---
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
