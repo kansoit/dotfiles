@@ -142,26 +142,26 @@ if command -v git > /dev/null 2>&1; then
     # Estado y Log (Visuales)
     alias gst='git status -sb'
     alias gl='git log --oneline --graph --decorate --all'
-    
+
     # Flujo de cambios
     alias ga='git add'
     alias gaa='git add -A'
     alias gd='git diff'
-    
+
     # Commits
     alias gc='git commit'
     alias gcm='git commit -m'
     alias gca='git commit --amend'
-    
+
     # Ramas y Navegación
     alias gb='git branch'
     alias gco='git checkout'
     alias gsw='git switch'
-    
+
     # Sincronización
     alias gp='git push'
     alias gpl='git pull'
-    
+
     # Utilidad
     alias gclean='git clean -fd'
 fi
@@ -193,6 +193,7 @@ bind "set show-all-if-ambiguous on"
 # set show-all-if-ambiguous on
 
 if command -v starship &> /dev/null 2>&1; then
+  STARSHIP_CONFIG=${HOME}/.config/starship.toml
   eval "$(starship init bash)"
 fi
 
