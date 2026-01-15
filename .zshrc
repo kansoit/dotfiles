@@ -2,7 +2,14 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
-bindkey -v
+bindkey -e
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[H' beginning-of-line      # Tecla Inicio (Home)
+bindkey '^[[F' end-of-line            # Tecla Fin (End)
+bindkey '^[[3~' delete-char           # Tecla Suprimir (Delete)
+bindkey '^?' backward-delete-char     # Tecla Backspace
 
 # Keypad
 # 0 . Enter NumPad On/Off
@@ -29,36 +36,76 @@ bindkey -s "^[OR" "*"
 bindkey -s "^[OQ" "/"
 
 
-# # End of lines configured by zsh-newuser-install
-# # The following lines were added by compinstall
-zstyle :compinstall filename '~.zshrc'
-# zstyle :compinstall filename '/home/$USER/.zshrc'
+fpath=(/usr/share/zsh-completions $fpath)
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-alias ls="ls --color=auto"
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# --- ALIAS DE SISTEMA (Extraídos de .bashrc) ---
+alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias ll='ls -alF'
+alias ll='ls -halF'
 alias la='ls -A'
 alias l='ls -CF'
+alias mkdir='mkdir -pv'
+alias df='df -Th'
+alias c='clear'
 
-# My Own Aliases
-function take {
-   mkdir -p $1
-   cd $1
-}
+# Reemplaza rm por trash (si está instalado)
+if command -v trash &> /dev/null 2>&1; then
+  alias rm='trash'
+fi
 
-# Must install trash-cli
-alias rm=trash
-alias c=clear
+# Kubernetes (MicroK8s)
+if command -v microk8s &> /dev/null 2>&1; then
+  alias kubectl='microk8s kubectl'
+fi
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# FZF e Historia
+if command -v fzf &> /dev/null 2>&1; then
+  alias hst="history | fzf --tac"
+fi
 
+# FD (Fix para nombres en Debian/Ubuntu)
+if command -v fdfind &> /dev/null 2>&1; then
+  alias fd=fdfind
+fi
+
+# Editor Micro
+if command -v micro &> /dev/null 2>&1; then
+  alias m=micro
+fi
+
+# --- GIT ALIASES ---
+if command -v git > /dev/null 2>&1; then
+    alias gst='git status -sb'
+    alias gl='git log --oneline --graph --decorate --all'
+    alias ga='git add'
+    alias gaa='git add -A'
+    alias gd='git diff'
+    alias gc='git commit'
+    alias gcm='git commit -m'
+    alias gca='git commit --amend'
+    alias gb='git branch'
+    alias gco='git checkout'
+    alias gsw='git switch'
+    alias gp='git push'
+    alias gpl='git pull'
+    alias gclean='git clean -fd'
+fi
+
+# --- FUNCIONES ESPECIALES ---
+
+# Alias Alert: Avisa cuando un comando largo termina (Solo si hay entorno gráfico)
+if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; }; then
+    alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+fi
 
 # Allow for command substitution in PS1 to have a common prompt with bash
 setopt promptsubst
@@ -79,13 +126,8 @@ setopt autoresume
 # Those options aren't wanted
 unsetopt autocd beep extendedglob notify
 
-
 # Prompt
 PROMPT='%B%F{green}%n@%m%F{white}:%B%F{blue}%d%F{white}$%b '
-
-source ~/.zsh/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-history-substring-search.zsh
-fpath=(~/.zsh/zsh-completions/src $fpath)
 
 # Group results by category
 zstyle ':completion:*' group-name ''
@@ -105,8 +147,13 @@ zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
-fi
+# --- VARIABLES DE ENTORNO ---
+export PATH=$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export LIBVIRT_DEFAULT_URI='qemu:///system'
+
+# --- Node Version Manager (NVM) ---
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 eval "$(starship init zsh)"
