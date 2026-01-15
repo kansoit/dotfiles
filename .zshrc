@@ -1,4 +1,6 @@
 # Lines configured by zsh-newuser-install
+# shellcheck shell=bash
+# shellcheck disable=SC2034,SC1091
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
@@ -36,14 +38,16 @@ bindkey -s "^[OR" "*"
 bindkey -s "^[OQ" "/"
 
 
-fpath=(/usr/share/zsh-completions $fpath)
+fpath=("$HOME/.zsh/zsh-completions" "${fpath[@]}")
+
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# --- Carga de Plugins desde el HOME ---
+source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # --- ALIAS DE SISTEMA (Extraídos de .bashrc) ---
 alias ls='ls --color=auto'
@@ -153,7 +157,13 @@ export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 # --- Node Version Manager (NVM) ---
 export NVM_DIR="$HOME/.nvm"
+# shellcheck disable=SC1091
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# shellcheck disable=SC1091
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-eval "$(starship init zsh)"
+
+if command -v starship &> /dev/null 2>&1; then
+  export STARSHIP_CONFIG=${HOME}/.config/starship.toml
+  eval "$(starship init zsh)"
+fi
