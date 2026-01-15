@@ -165,6 +165,16 @@ if command -v git > /dev/null 2>&1; then
     alias gclean='git clean -fd'
 fi
 
+if command -v pre-commit > /dev/null 2>&1; then
+    alias alint='pre-commit run ansible-lint --files'
+    alias slint='pre-commit run shellcheck --files'
+    alias alint-all='pre-commit run ansible-lint --all-files'
+    alias slint-all='pre-commit run shellcheck --all-files'
+
+    # Opcional: un alias para actualizar los hooks rápidamente
+    alias alint-up='pre-commit autoupdate'
+fi
+
 # Configuración de fzf y fd
 if command -v fzf &> /dev/null 2>&1 && command -v fd &> /dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='fd --type f'
