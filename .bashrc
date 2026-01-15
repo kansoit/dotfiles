@@ -53,12 +53,12 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -109,11 +109,8 @@ if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLA
 fi
 
 # Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
+    # shellcheck source=/dev/null
     . ~/.bash_aliases
 fi
 
@@ -179,30 +176,34 @@ if command -v nano >/dev/null 2>&1; then
     export VISUAL=nano
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
+# enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
+    # shellcheck source=/dev/null
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
+    # shellcheck source=/dev/null
     . /etc/bash_completion
   fi
 fi
 
 bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
-# set show-all-if-ambiguous on
 
-export PATH=$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# PATH aditivo (no pisa rutas previas del sistema)
+export PATH="$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH"
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
-complete -C /usr/bin/terraform terraform
+if command -v terraform > /dev/null 2>&1; then
+    complete -C /usr/bin/terraform terraform
+fi
 
 # --- Node Version Manager (NVM) ---
 export NVM_DIR="$HOME/.nvm"
 
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 if command -v starship &> /dev/null 2>&1; then
