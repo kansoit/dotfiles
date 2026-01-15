@@ -49,7 +49,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -92,7 +92,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -halF'
@@ -114,7 +114,6 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    # shellcheck disable=SC1090
     . ~/.bash_aliases
 fi
 
@@ -185,10 +184,8 @@ fi
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
-    # shellcheck disable=SC1091
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
-    # shellcheck disable=SC1091
     . /etc/bash_completion
   fi
 fi
@@ -197,11 +194,6 @@ bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
 # set show-all-if-ambiguous on
 
-if command -v starship &> /dev/null 2>&1; then
-  export STARSHIP_CONFIG=${HOME}/.config/starship.toml
-  eval "$(starship init bash)"
-fi
-
 export PATH=$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
@@ -209,7 +201,11 @@ complete -C /usr/bin/terraform terraform
 
 # --- Node Version Manager (NVM) ---
 export NVM_DIR="$HOME/.nvm"
-# shellcheck disable=SC1091
+
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-# shellcheck disable=SC1091
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+if command -v starship &> /dev/null 2>&1; then
+  export STARSHIP_CONFIG=${HOME}/.config/starship.toml
+  eval "$(starship init bash)"
+fi
