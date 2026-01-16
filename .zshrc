@@ -74,8 +74,10 @@ fi
 
 # FZF e Historia
 if command -v fzf &> /dev/null 2>&1; then
-  alias hst="history | fzf --tac"
+  alias hts="history 1 | fzf --tac"
 fi
+
+alias ht="history 1"
 
 # FD (Fix para nombres en Debian/Ubuntu)
 if command -v fdfind &> /dev/null 2>&1; then

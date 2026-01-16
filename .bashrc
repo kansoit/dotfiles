@@ -126,8 +126,10 @@ if command -v microk8s &> /dev/null 2>&1; then
 fi
 
 if command -v fzf &> /dev/null 2>&1; then
-  alias hst="history | fzf --tac"
+  alias hts="history | fzf --tac"
 fi
+
+alias ht="history"
 
 if command -v fdfind &> /dev/null 2>&1; then
   alias fd=fdfind
