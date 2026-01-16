@@ -1,9 +1,10 @@
 # Lines configured by zsh-newuser-install
 # shellcheck shell=bash
 # shellcheck disable=SC2034,SC1091
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTFILE=~/.zsh_history
+HISTSIZE=2000
+SAVEHIST=5000
+
 bindkey -e
 
 bindkey '^[[A' history-substring-search-up
@@ -126,24 +127,29 @@ if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLA
     alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
-# Allow for command substitution in PS1 to have a common prompt with bash
+# --- Configuración del Historial ---
+# Sincronización en tiempo real (Incluye automáticamente appendhistory e incappendhistory)
+setopt sharehistory
+# No guarda comandos que empiecen con espacio ni duplicados consecutivos
+setopt histignorespace histignoredups
+
+# --- Interfaz y Comportamiento ---
+# Permite sustitución de comandos en el PS1 (compatibilidad con prompts de bash)
 setopt promptsubst
-# Append to history to avoid losing commands when multiple shells are open
-setopt appendhistory
-# Show an error when a globbing expansion doesn't find any match
+# Muestra error si un patrón de búsqueda (glob) no encuentra resultados
 setopt nomatch
-# List on ambiguous completion and Insert first match immediately
-setopt autolist menucomplete
-# Don't add duplicates nor commands starting with a space to the history
-setopt histignoredups histignorespace
-# Use pushd when cd-ing around
+# Menú de completado inteligente con Tab y navegación con flechas
+setopt autolist auto_menu
+# Manejo de la pila de directorios (permite usar 'cd -')
 setopt autopushd pushdminus pushdsilent
-# Use single quotes in string without the weird escape tricks
+# Permite usar comillas simples literales dentro de strings (ej: 'don''t')
 setopt rcquotes
-# Single word commands can resume an existing job
+# Reanuda procesos suspendidos escribiendo simplemente su nombre
 setopt autoresume
-# Those options aren't wanted
-unsetopt autocd beep extendedglob notify
+# Navegación sin 'cd' y comodines de búsqueda avanzados (recursividad, exclusión)
+setopt autocd extendedglob
+# Desactiva avisos sonoros y notificaciones de tareas en segundo plano
+unsetopt beep notify
 
 # Prompt
 PROMPT='%B%F{green}%n@%m%F{white}:%B%F{blue}%d%F{white}$%b '
@@ -165,6 +171,7 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' menu select
 
 # --- VARIABLES DE ENTORNO ---
 export PATH=$HOME/.local/bin:/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
