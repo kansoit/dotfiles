@@ -114,6 +114,11 @@ if command -v pre-commit > /dev/null 2>&1; then
     alias alint-up='pre-commit autoupdate'
 fi
 
+# Alias para eza (si está instalado)
+if command -v eza >/dev/null 2>&1; then
+    alias el='EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0" eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso'
+fi
+
 # --- FUNCIONES ESPECIALES ---
 
 # Alias Alert: Avisa cuando un comando largo termina (Solo si hay entorno gráfico)
