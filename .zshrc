@@ -51,10 +51,17 @@ source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# Solo carga la integración si estamos en Ghostty
-if [[ "$TERM" == "xterm-ghostty" || -n "$GHOSTTY_RESOURCES_DIR" ]]; then
-    if [[ -f "$HOME/.zsh/ghostty-integration.zsh" ]]; then
-        source "$HOME/.zsh/ghostty-integration.zsh"
+# --- Integración de Ghostty ---
+# Se activa solo si la terminal es Ghostty
+if [[ "$TERM" == "xterm-ghostty" ]]; then
+    # Definimos la ruta local donde Ansible despliega el script
+    local GHOSTTY_LOCAL_SCRIPT="$HOME/.zsh/ghostty-integration.zsh"
+
+    if [[ -f "$GHOSTTY_LOCAL_SCRIPT" ]]; then
+        # En sesiones SSH, esta variable suele estar vacía.
+        # La definimos para que el script no falle al buscar sus recursos.
+        export GHOSTTY_RESOURCES_DIR="${GHOSTTY_RESOURCES_DIR:-/usr/share/ghostty}"
+        source "$GHOSTTY_LOCAL_SCRIPT"
     fi
 fi
 
@@ -133,10 +140,10 @@ fi
 # Lógica para alias universal bcat
 if command -v batcat &> /dev/null; then
     # Caso Debian/Ubuntu
-    alias bcat='batcat -p'
+    alias bcat='batcat -p -p'
 elif command -v bat &> /dev/null; then
     # Caso Fedora/RedHat
-    alias bcat='bat -p'
+    alias bcat='bat -p -p'
 fi
 
 fp() {
