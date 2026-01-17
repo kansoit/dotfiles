@@ -51,17 +51,15 @@ source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# --- Integración de Ghostty ---
-# Se activa solo si la terminal es Ghostty
+# --- Integración Ghostty (Modo Remoto/Local) ---
 if [[ "$TERM" == "xterm-ghostty" ]]; then
-    # Definimos la ruta local donde Ansible despliega el script
-    local GHOSTTY_LOCAL_SCRIPT="$HOME/.zsh/ghostty-integration.zsh"
+    # Seteamos la ruta de recursos para que el script no falle
+    export GHOSTTY_RESOURCES_DIR="${GHOSTTY_RESOURCES_DIR:-$HOME/.zsh}"
 
-    if [[ -f "$GHOSTTY_LOCAL_SCRIPT" ]]; then
-        # En sesiones SSH, esta variable suele estar vacía.
-        # La definimos para que el script no falle al buscar sus recursos.
-        export GHOSTTY_RESOURCES_DIR="${GHOSTTY_RESOURCES_DIR:-/usr/share/ghostty}"
-        source "$GHOSTTY_LOCAL_SCRIPT"
+    if [[ -f "$HOME/.zsh/ghostty-integration.zsh" ]]; then
+        source "$HOME/.zsh/ghostty-integration.zsh"
+        # Forzamos el FD si no se detectó (necesario en SSH)
+        [[ -z "$_ghostty_fd" ]] && _ghostty_fd=1
     fi
 fi
 
