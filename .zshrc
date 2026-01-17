@@ -41,6 +41,7 @@ bindkey -s "^[OQ" "/"
 
 fpath=("$HOME/.zsh/zsh-completions" "${fpath[@]}")
 
+autoload -U colors && colors
 autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
@@ -125,11 +126,33 @@ fi
 # Lógica para alias universal bcat
 if command -v batcat &> /dev/null; then
     # Caso Debian/Ubuntu
-    alias bcat='batcat'
+    alias bcat='batcat -p'
 elif command -v bat &> /dev/null; then
     # Caso Fedora/RedHat
-    alias bcat='bat'
+    alias bcat='bat -p'
 fi
+
+fp() {
+    EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0" \
+    eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always | \
+    fzf --ansi \
+        --header-lines=1 \
+        --layout=reverse \
+        --height=95% \
+        --border \
+        --inline-info \
+        --preview '
+            # shellcheck disable=SC2016
+            item=$(echo {9..})
+            if [ -d "$item" ]; then
+                eza --tree --color=always --icons "$item" 2>/dev/null | head -200
+            else
+                batcat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
+                bat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
+                cat "$item" 2>/dev/null
+            fi
+        ' --preview-window 'right:60%'
+}
 
 # --- FUNCIONES ESPECIALES ---
 
