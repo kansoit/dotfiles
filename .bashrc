@@ -197,31 +197,55 @@ elif command -v bat &> /dev/null; then
 fi
 
 fp() {
-    # 1. Definimos los colores para mantener tu estética 'el'
+    # 1. Definimos los colores estéticos
     export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
+    
+    local target="${1:-.}"
+    
+    # Verificación de existencia
+    if [ ! -e "$target" ]; then
+        echo "Error: '$target' no existe."
+        return 1
+    fi
 
-    # 2. Ejecutamos eza con color siempre activo para fzf --ansi
-    eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always | \
-    fzf --ansi \
-        --header-lines=1 \
-        --layout=reverse \
-        --height=95% \
-        --border \
-        --inline-info \
-        --preview '
-            # shellcheck disable=SC2016
-            # Usamos awk para tomar siempre el ÚLTIMO campo, que es el nombre del archivo
-            # Esto ignora si hay 8, 9 o 10 columnas antes
-            item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
+    (
+        # Cambio de contexto según el tipo de entrada
+        if [ -f "$target" ]; then
+            cd "$(dirname "$target")" || return
+            local eza_target
+            eza_target=$(basename "$target")
+        else
+            cd "$target" || return
+            local eza_target=""
+        fi
 
-            if [ -d "$item" ]; then
-                eza --tree --color=always --icons "$item" 2>/dev/null | head -200
-            else
-                batcat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
-                bat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
-                cat "$item" 2>/dev/null
-            fi
-        ' --preview-window 'right:60%'
+        # Activamos el modo aplicación del teclado (estándar Bash/tput)
+        tput smkx 2>/dev/null
+
+        # Ejecución del explorador
+        eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always $eza_target | \
+        fzf --ansi \
+            --header-lines=1 \
+            --layout=reverse \
+            --height=95% \
+            --border \
+            --inline-info \
+            --preview '
+                # shellcheck disable=SC2016
+                item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
+
+                if [ -d "$item" ]; then
+                    eza --tree --color=always --icons "$item" 2>/dev/null | head -200
+                else
+                    batcat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
+                    bat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
+                    cat "$item" 2>/dev/null
+                fi
+            ' --preview-window 'right:60%'
+
+        # Volvemos al modo normal del teclado al salir
+        tput rmkx 2>/dev/null
+    )
 }
 
 # Configurar nano como editor por defecto, solo si está instalado
