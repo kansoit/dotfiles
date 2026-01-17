@@ -199,9 +199,9 @@ fi
 fp() {
     # 1. Definimos los colores estéticos
     export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
-    
+
     local target="${1:-.}"
-    
+
     # Verificación de existencia
     if [ ! -e "$target" ]; then
         echo "Error: '$target' no existe."
@@ -283,6 +283,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Solo carga la integración si estamos en Ghostty
+if [[ "$TERM" == "xterm-ghostty" || -n "$GHOSTTY_RESOURCES_DIR" ]]; then
+    if [[ -f "$HOME/.bash_plugins/ghostty.bash" ]]; then
+        [[ -f "$HOME/.bash_plugins/bash-preexec.sh" ]] && source "$HOME/.bash_plugins/bash-preexec.sh"
+        source "$HOME/.bash_plugins/ghostty.bash"
+    fi
+fi
 
 if command -v starship &> /dev/null 2>&1; then
   export STARSHIP_CONFIG=${HOME}/.config/starship.toml

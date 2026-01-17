@@ -51,6 +51,13 @@ source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
+# Solo carga la integración si estamos en Ghostty
+if [[ "$TERM" == "xterm-ghostty" || -n "$GHOSTTY_RESOURCES_DIR" ]]; then
+    if [[ -f "$HOME/.zsh/ghostty-integration.zsh" ]]; then
+        source "$HOME/.zsh/ghostty-integration.zsh"
+    fi
+fi
+
 # --- ALIAS DE SISTEMA (Extraídos de .bashrc) ---
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -134,7 +141,7 @@ fi
 
 fp() {
     export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
-    
+
     local target="${1:-.}"
     if [ ! -e "$target" ]; then
         echo "Error: '$target' no existe."
