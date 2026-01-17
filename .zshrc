@@ -51,18 +51,6 @@ source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# --- Integración Ghostty (Modo Remoto/Local) ---
-if [[ "$TERM" == "xterm-ghostty" ]]; then
-    # Seteamos la ruta de recursos para que el script no falle
-    export GHOSTTY_RESOURCES_DIR="${GHOSTTY_RESOURCES_DIR:-$HOME/.zsh}"
-
-    if [[ -f "$HOME/.zsh/ghostty-integration.zsh" ]]; then
-        source "$HOME/.zsh/ghostty-integration.zsh"
-        # Forzamos el FD si no se detectó (necesario en SSH)
-        [[ -z "$_ghostty_fd" ]] && _ghostty_fd=1
-    fi
-fi
-
 # --- ALIAS DE SISTEMA (Extraídos de .bashrc) ---
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
