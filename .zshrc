@@ -133,7 +133,10 @@ elif command -v bat &> /dev/null; then
 fi
 
 fp() {
-    EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0" \
+    # 1. Definimos los colores para mantener tu estética 'el'
+    export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
+
+    # 2. Ejecutamos eza con color siempre activo para fzf --ansi
     eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always | \
     fzf --ansi \
         --header-lines=1 \
@@ -143,7 +146,10 @@ fp() {
         --inline-info \
         --preview '
             # shellcheck disable=SC2016
-            item=$(echo {9..})
+            # Usamos awk para tomar siempre el ÚLTIMO campo, que es el nombre del archivo
+            # Esto ignora si hay 8, 9 o 10 columnas antes
+            item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
+
             if [ -d "$item" ]; then
                 eza --tree --color=always --icons "$item" 2>/dev/null | head -200
             else
