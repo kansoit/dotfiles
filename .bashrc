@@ -284,14 +284,6 @@ export NVM_DIR="$HOME/.nvm"
 # shellcheck source=/dev/null
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Solo carga la integración si estamos en Ghostty
-if [[ "$TERM" == "xterm-ghostty" || -n "$GHOSTTY_RESOURCES_DIR" ]]; then
-    if [[ -f "$HOME/.bash_plugins/ghostty.bash" ]]; then
-        [[ -f "$HOME/.bash_plugins/bash-preexec.sh" ]] && source "$HOME/.bash_plugins/bash-preexec.sh"
-        source "$HOME/.bash_plugins/ghostty.bash"
-    fi
-fi
-
 if command -v starship &> /dev/null 2>&1; then
   export STARSHIP_CONFIG=${HOME}/.config/starship.toml
   eval "$(starship init bash)"
