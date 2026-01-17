@@ -190,10 +190,10 @@ fi
 # Lógica para alias universal bcat
 if command -v batcat &> /dev/null; then
     # Caso Debian/Ubuntu
-    alias bcat='batcat -p'
+    alias bcat='batcat -p -p'
 elif command -v bat &> /dev/null; then
     # Caso Fedora/RedHat
-    alias bcat='bat -p'
+    alias bcat='bat -p -p'
 fi
 
 fp() {
