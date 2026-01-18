@@ -132,6 +132,20 @@ elif command -v bat &> /dev/null; then
     alias bcat='bat -p -p'
 fi
 
+if command -v docker &> /dev/null 2>&1; then
+    alias dvls='docker volume ls | bcat -l conf'
+    alias dnls='docker network ls | bcat -l conf'
+    alias dcls='docker container ls -a | bcat -l conf'
+    alias dils='docker image ls'
+fi
+
+if command -v podman &> /dev/null 2>&1; then
+    alias pvls='podman volume ls | bcat -l conf'
+    alias pnls='podman network ls | bcat -l conf'
+    alias pcls='podman container ls -a | bcat -l conf'
+    alias pils='podman image ls | bcat -l conf'
+fi
+
 fp() {
     export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
 
