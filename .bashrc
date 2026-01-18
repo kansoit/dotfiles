@@ -187,34 +187,34 @@ if command -v eza >/dev/null 2>&1; then
     alias el='EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0" eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso'
 fi
 
-# --- 1. Detección de binario bat/batcat ---
-if command -v batcat 2&1> /dev/null; then
+# --- 1. Detección de binario bat/batcat (Sintaxis compatible) ---
+if command -v batcat > /dev/null 2>&1; then
     _BAT_BIN='batcat'
-elif command -v bat 2&1> /dev/null; then
+elif command -v bat > /dev/null 2>&1; then
     _BAT_BIN='bat'
 fi
 
-# --- 2. Definición de Alias y Funciones si existe bat ---
+# --- 2. Definición de Alias y Funciones ---
 if [[ -n $_BAT_BIN ]]; then
-    
-    # bcat: para escupir texto plano con colores (ideal para pipes)
+
+    # bcat: para escupir texto plano con colores (ideal para pipes de docker)
     alias bcat="$_BAT_BIN -p -p"
 
-    # man: función para manuales con colores y paginador
+    # man: corregido para visualización limpia y sin cortes de palabras
     man() {
-        /usr/bin/man "$@" | col -bx | $_BAT_BIN -l man
+        /usr/bin/man "$@" | col -bx | $_BAT_BIN -l man -p --wrap=never
     }
 
     # --- 3. Lógica para Docker ---
-    if command -v docker 2&1> /dev/null; then
+    if command -v docker > /dev/null 2>&1; then
         alias dvls="docker volume ls  | bcat -l conf"
         alias dnls="docker network ls | bcat -l conf"
-        alias dcls="docker container  | bcat -l conf"
+        alias dcls="docker container ls -a | bcat -l conf"
         alias dils='docker image ls'
     fi
 
     # --- 4. Lógica para Podman ---
-    if command -v podman 2&1> /dev/null; then
+    if command -v podman > /dev/null 2>&1; then
         alias pvls="podman volume ls  | bcat -l conf"
         alias pnls="podman network ls | bcat -l conf"
         alias pcls="podman container ls -a | bcat -l conf"
