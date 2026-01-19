@@ -158,6 +158,9 @@ if [[ -n $_BAT_BIN ]]; then
     fi
 fi
 
+#Alias for sudo
+alias sudo="sudo "
+
 fp() {
     export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
 
