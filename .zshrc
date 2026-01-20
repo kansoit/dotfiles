@@ -147,6 +147,9 @@ if [[ -n $_BAT_BIN ]]; then
         alias dnls="docker network ls | bcat -l conf"
         alias dcls="docker container ls -a | bcat -l conf"
         alias dils='docker image ls'
+        alias dcdw="docker compose down"
+        alias dcup="docker compose up -d"
+        alias drmi="docker rmi"
     fi
 
     # --- 4. Lógica para Podman ---
@@ -155,6 +158,9 @@ if [[ -n $_BAT_BIN ]]; then
         alias pnls="podman network ls | bcat -l conf"
         alias pcls="podman container ls -a | bcat -l conf"
         alias pils="podman image ls | bcat -l conf"
+        alias pcdw="podman-compose down"
+        alias pcup="podman-compose up -d"
+        alias drmi="podman rmi"
     fi
 fi
 
