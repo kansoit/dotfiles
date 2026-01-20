@@ -224,7 +224,7 @@ if [[ -n $_BAT_BIN ]]; then
         alias pils="podman image ls | bcat -l conf"
         alias pcdw="podman-compose down"
         alias pcup="podman-compose up -d"       
-        alias drmi="podman rmi"        
+        alias prmi="podman rmi"        
     fi
 fi
 
