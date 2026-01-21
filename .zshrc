@@ -71,6 +71,7 @@ fi
 # Kubernetes (MicroK8s)
 if command -v microk8s &> /dev/null 2>&1; then
   alias kubectl='microk8s kubectl'
+  export KUBECONFIG="$HOME/.kube/config"
 fi
 
 # FZF e Historia
