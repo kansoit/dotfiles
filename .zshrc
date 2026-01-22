@@ -151,6 +151,7 @@ if [[ -n $_BAT_BIN ]]; then
         alias dcdw="docker compose down"
         alias dcup="docker compose up -d"
         alias drmi="docker rmi"
+        alias dlg="docker log"
     fi
 
     # --- 4. Lógica para Podman ---
@@ -162,6 +163,7 @@ if [[ -n $_BAT_BIN ]]; then
         alias pcdw="podman-compose down"
         alias pcup="podman-compose up -d"
         alias prmi="podman rmi"
+        alias plg="podman log"
     fi
 fi
 
