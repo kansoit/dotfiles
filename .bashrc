@@ -140,6 +140,11 @@ if command -v micro &> /dev/null 2>&1; then
   alias m=micro
 fi
 
+if command -v dig &> /dev/null 2>&1; then
+  alias myip='dig +short txt o-o.myaddr.l.google.com @8.8.8.8 | tr -d "\""'
+fi
+
+
 if command -v git > /dev/null 2>&1; then
     # Estado y Log (Visuales)
     alias gst='git status -sb'
