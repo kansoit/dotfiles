@@ -155,7 +155,11 @@ if [[ -n $_BAT_BIN ]]; then
         alias dcdw="docker compose down"
         alias dcup="docker compose up -d"
         alias drmi="docker rmi"
-        alias dlg="docker log"
+        alias dimg="docker images"
+        alias dlog="docker log"
+        alias dcln="docker ps -a --format "{{.Names}}""
+        alias dstp="docker stop"
+        alias dstr="docker start"
     fi
 
     # --- 4. Lógica para Podman ---
@@ -167,7 +171,11 @@ if [[ -n $_BAT_BIN ]]; then
         alias pcdw="podman-compose down"
         alias pcup="podman-compose up -d"
         alias prmi="podman rmi"
-        alias plg="podman log"
+        alias pimg="podman images"
+        alias plog="podman log"
+        alias pcln="podman ps -a --format "{{.Names}}""
+        alias pstp="podman stop"
+        alias pstr="podman start"
     fi
 fi
 
@@ -184,40 +192,61 @@ fp() {
     fi
 
     (
+        # Navegamos al target inicial
         if [ -f "$target" ]; then
             cd "$(dirname "$target")" || return
-            local eza_target
-            eza_target=$(basename "$target")
         else
             cd "$target" || return
-            local eza_target=""
         fi
 
-        # Activamos el modo aplicación del teclado
-        [[ -n "$terminfo[smkx]" ]] && echoti smkx
+        # Definimos variables fuera del bucle para que la asignación sea silenciosa
+        local selection=""
+        local item=""
 
-        eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always $eza_target | \
-        fzf --ansi \
-            --header-lines=1 \
-            --layout=reverse \
-            --height=95% \
-            --border \
-            --inline-info \
-            --preview '
-                # shellcheck disable=SC2016
-                item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
+        while true; do
+            [[ -n "$terminfo[smkx]" ]] && echoti smkx
 
-                if [ -d "$item" ]; then
-                    eza --tree --color=always --icons "$item" 2>/dev/null | head -200
-                else
-                    batcat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
-                    bat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
-                    cat "$item" 2>/dev/null
-                fi
-            ' --preview-window 'right:60%'
+            # La clave: ejecutamos fzf directamente asignando a la variable
+            # Sin 'echo' intermedios ni trazas de shell
+            selection=$(eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always | \
+            fzf --ansi \
+                --header-lines=1 \
+                --layout=reverse \
+                --height=95% \
+                --border \
+                --inline-info \
+                --header "Ruta: $(pwd) | [Enter] Entrar | [←] Volver | [Esc] Salir" \
+                --bind "home:preview-top,end:preview-bottom,pgup:preview-page-up,pgdn:preview-page-down" \
+                --bind "left:become(echo '..')" \
+                --preview '
+                    # Limpieza de ANSI y obtención del nombre del archivo
+                    item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
 
-        # Desactivamos el modo aplicación y limpiamos el buffer
-        [[ -n "$terminfo[rmkx]" ]] && echoti rmkx
+                    if [ -d "$item" ]; then
+                        eza --tree --color=always --icons "$item" 2>/dev/null
+                    else
+                        batcat --color=always --style=numbers "$item" 2>/dev/null || \
+                        bat --color=always --style=numbers "$item" 2>/dev/null || \
+                        cat "$item" 2>/dev/null
+                    fi
+                ' --preview-window 'right:60%')
+
+            [[ -n "$terminfo[rmkx]" ]] && echoti rmkx
+
+            # Si salimos con ESC, el subshell termina y volvemos al punto original
+            [ -z "$selection" ] && break
+
+            # Procesamos la selección de forma totalmente silenciosa
+            item=$(echo "$selection" | sed "s/\x1b\[[0-9;]*m//g" | awk '{print $NF}')
+
+            if [ -d "$item" ]; then
+                # Si es directorio, entramos. fzf se redibujará solo en la siguiente vuelta.
+                cd "$item" || break
+            else
+                # Si es archivo, ignoramos. fzf no se cierra ni parpadea.
+                continue
+            fi
+        done
     )
 }
 

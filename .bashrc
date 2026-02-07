@@ -220,7 +220,11 @@ if [[ -n $_BAT_BIN ]]; then
         alias dcdw="docker compose down"
         alias dcup="docker compose up -d"
         alias drmi="docker rmi"
-        alias dlg="docker logs"
+        alias dimg="docker images"
+        alias dlog="docker log"
+        alias dcln="docker ps -a --format '{{.Names}}'"
+        alias dstp="docker stop"
+        alias dstr="docker start"
     fi
 
     # --- 4. Lógica para Podman ---
@@ -230,9 +234,13 @@ if [[ -n $_BAT_BIN ]]; then
         alias pcls="podman container ls -a | bcat -l conf"
         alias pils="podman image ls | bcat -l conf"
         alias pcdw="podman-compose down"
-        alias pcup="podman-compose up -d"       
-        alias prmi="podman rmi"        
-        alias plg="podman log"
+        alias pcup="podman-compose up -d"
+        alias prmi="podman rmi"
+        alias pimg="podman images"
+        alias plog="podman log"
+        alias pcln="podman ps -a --format '{{.Names}}'"
+        alias pstp="podman stop"
+        alias pstr="podman start"
     fi
 fi
 
@@ -245,49 +253,65 @@ fp() {
 
     local target="${1:-.}"
 
-    # Verificación de existencia
     if [ ! -e "$target" ]; then
         echo "Error: '$target' no existe."
         return 1
     fi
 
     (
-        # Cambio de contexto según el tipo de entrada
+        # Cambio de contexto inicial
         if [ -f "$target" ]; then
             cd "$(dirname "$target")" || return
-            local eza_target
-            eza_target=$(basename "$target")
         else
             cd "$target" || return
-            local eza_target=""
         fi
 
-        # Activamos el modo aplicación del teclado (estándar Bash/tput)
-        tput smkx 2>/dev/null
+        # Bucle de navegación infinito
+        while true; do
+            tput smkx 2>/dev/null
 
-        # Ejecución del explorador
-        eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always $eza_target | \
-        fzf --ansi \
-            --header-lines=1 \
-            --layout=reverse \
-            --height=95% \
-            --border \
-            --inline-info \
-            --preview '
-                # shellcheck disable=SC2016
-                item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
+            # IMPORTANTE: Usamos 'become' para navegar sin salir del proceso fzf 
+            # o capturamos la salida de forma que no ensucie el buffer
+            local selection
+            selection=$(eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always | \
+            fzf --ansi \
+                --header-lines=1 \
+                --layout=reverse \
+                --height=95% \
+                --border \
+                --inline-info \
+                --header "Ruta: $(pwd) | [Enter] Entrar | [←] Volver | [Esc] Salir" \
+                --bind "home:preview-top,end:preview-bottom,pgup:preview-page-up,pgdn:preview-page-down" \
+                --bind "left:become(echo ..)" \
+                --preview '
+                    # shellcheck disable=SC2016
+                    item=$(echo {} | sed "s/\x1b\[[0-9;]*m//g" | awk "{print \$NF}")
 
-                if [ -d "$item" ]; then
-                    eza --tree --color=always --icons "$item" 2>/dev/null | head -200
-                else
-                    batcat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
-                    bat --color=always --style=numbers --line-range :500 "$item" 2>/dev/null || \
-                    cat "$item" 2>/dev/null
-                fi
-            ' --preview-window 'right:60%'
+                    if [ -d "$item" ]; then
+                        eza --tree --color=always --icons "$item" 2>/dev/null
+                    else
+                        batcat --color=always --style=numbers "$item" 2>/dev/null || \
+                        bat --color=always --style=numbers "$item" 2>/dev/null || \
+                        cat "$item" 2>/dev/null
+                    fi
+                ' --preview-window 'right:60%')
 
-        # Volvemos al modo normal del teclado al salir
-        tput rmkx 2>/dev/null
+            tput rmkx 2>/dev/null
+
+            # Si salimos con ESC, rompemos el bucle y el subshell limpia todo
+            [ -z "$selection" ] && break
+
+            # Extraemos el item de la línea seleccionada
+            local selected_item
+            selected_item=$(echo "$selection" | sed "s/\x1b\[[0-9;]*m//g" | awk '{print $NF}')
+
+            if [ -d "$selected_item" ]; then
+                cd "$selected_item" || break
+            else
+                # Si es un archivo, simplemente volvemos a mostrar fzf en la misma carpeta
+                continue
+            fi
+        done
     )
 }
 
