@@ -16,6 +16,13 @@ if command -v micro >/dev/null 2>&1; then
   alias m=micro
 fi
 
+# Uso de disco interactivo (dua reemplaza a ncdu)
+if command -v dua >/dev/null 2>&1; then
+  alias dua='dua i'
+  alias duai='sudo dua i / -i /mnt'
+  alias ncdu='sudo dua i / -i /mnt'
+fi
+
 # --- Historial interactivo ---
 if [ -n "$ZSH_VERSION" ]; then
   alias ht="history 1"
