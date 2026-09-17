@@ -96,3 +96,8 @@ fi
 if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ]; }; then
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
+
+# --- AS/400 (IBM i) 5250 Emulator ---
+if command -v tn5250 >/dev/null 2>&1; then
+  alias gn73='tn5250 gn73'
+fi
