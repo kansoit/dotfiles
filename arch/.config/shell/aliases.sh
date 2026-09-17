@@ -97,4 +97,9 @@ if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLA
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
+# --- LibreOffice en Modo Claro ---
+if command -v libreoffice >/dev/null 2>&1; then
+  alias libre='GTK_THEME=Adwaita:light libreoffice'
+fi
+
 
