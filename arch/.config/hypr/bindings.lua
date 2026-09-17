@@ -36,5 +36,6 @@ o.bind("SUPER + SHIFT + X", "Mastodon", { webapp = "https://mastodon.social/deck
 -- Antigravity IDE (Google DeepMind)
 o.bind("SUPER + A", "Antigravity", { launch = "antigravity", focus = "^antigravity$" })
 
-
-
+-- Mover ventanas verticalmente (arriba/abajo) en el mosaico
+o.bind("SUPER + CTRL + UP", "Move window up", hl.dsp.window.move({ direction = "u" }))
+o.bind("SUPER + CTRL + DOWN", "Move window down", hl.dsp.window.move({ direction = "d" }))
