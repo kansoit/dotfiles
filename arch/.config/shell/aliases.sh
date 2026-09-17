@@ -105,4 +105,25 @@ if command -v libreoffice >/dev/null 2>&1; then
   }
 fi
 
+# --- AS/400 (IBM i) 5250 Emulator ---
+if command -v tn5250 >/dev/null 2>&1; then
+  gn73() {
+    local target_host="192.168.73.154"
+    if ! ping -c 1 -W 1 "$target_host" >/dev/null 2>&1; then
+      echo -e "\033[1;31m✖ Error:\033[0m No hay conectividad con el AS/400 ($target_host)."
+      echo -e "\033[1;33m⚠ Verificá si la VPN está conectada.\033[0m"
+      if command -v notify-send >/dev/null 2>&1 && [ -n "${WAYLAND_DISPLAY:-}" ]; then
+        notify-send -u critical -i network-error "AS/400 GN73" "No hay conexión con $target_host.\n¿Está la VPN activa?"
+      fi
+      return 1
+    fi
+    foot -d none -a as400 -T "AS/400 GN73" \
+      -f "Inconsolata Nerd Font Mono:size=14" \
+      -W 84x28 \
+      -o 'text-bindings.\x0b=KP_Add' \
+      tn5250 gn73 "$@" 2>/dev/null &
+    disown 2>/dev/null || true
+  }
+fi
+
 

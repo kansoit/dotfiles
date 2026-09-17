@@ -1,0 +1,9 @@
+# Configuración de tn5250 para IBM i / AS400
+# Documentación: man 5 tn5250rc
+
+gn73 {
+    host = 192.168.73.154
+    env.TERM = IBM-3180-2
+    map = 284
+    +underscores
+}
