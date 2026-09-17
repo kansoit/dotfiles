@@ -1,0 +1,13 @@
+# Historiales y sesiones
+*.history
+.bash_history
+.zsh_history
+
+# Archivos de respaldo
+*.bak
+*.old
+*~
+*.swp
+
+# Archivos de sistema
+.DS_Store
