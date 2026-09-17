@@ -5,6 +5,8 @@
 
 o.window({ tag = "floating-window" }, { size = { 1100, 670 } })
 
--- IBM i Access Client Solutions (Java Swing / AWT bajo XWayland)
--- Permitir flotar y mover libremente entre pantallas sin forzar centrado
-o.window("com-ibm-iaccess-.*", { float = true })
+-- AS/400 (tn5250 sobre foot): abre siempre flotante y centrado
+o.window({ class = "as400" }, {
+  float = true,
+  center = true,
+})
