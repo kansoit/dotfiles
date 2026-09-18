@@ -110,10 +110,9 @@ if command -v tn5250 >/dev/null 2>&1; then
       fi
       return 1
     fi
-    foot -d none -a as400 -T "AS/400 GN73" \
-      -f "Inconsolata Nerd Font Mono:size=20" \
-      -W 80x25 \
-      -o 'pad=16x16' \
+    foot -d none -a as400 -T "GN73" \
+      -f "Fira Mono:size=18" \
+      -W 80x24 \
       -o 'text-bindings.\x0b=KP_Add' \
       tn5250 gn73 "$@" 2>/dev/null &
     disown 2>/dev/null || true
