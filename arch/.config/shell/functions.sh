@@ -120,3 +120,24 @@ md2pdf() {
 
   echo "✓ PDF generado en <0.2s: $output (Fuente: $font, $fontsize)"
 }
+
+# --- Navegación inteligente (cd + zoxide) ---
+# Sobrescribe el wrapper de Omarchy para silenciar "zoxide: no match found"
+if command -v zoxide >/dev/null 2>&1; then
+  alias cd="zd"
+  zd() {
+    if (( $# == 0 )); then
+      builtin cd ~ || return
+    elif [[ -d $1 ]]; then
+      builtin cd "$1" || return
+    else
+      if ! z "$@" 2>/dev/null; then
+        echo "Error: Directory not found"
+        return 1
+      fi
+
+      printf "\U000F17A9 "
+      pwd
+    fi
+  }
+fi
