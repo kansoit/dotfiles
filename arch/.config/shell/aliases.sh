@@ -9,6 +9,9 @@ alias sudo='sudo '
 # Papelera segura (trash-cli)
 if command -v trash >/dev/null 2>&1; then
   alias rm='trash'
+  alias tlist='trash-list'
+  alias trest='trash-restore'
+  alias tcln='trash-empty'
 fi
 
 # Editor micro
