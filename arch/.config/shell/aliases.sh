@@ -99,6 +99,6 @@ fi
 
 
 # --- AS/400 (IBM i) 5250 Emulator (5250ng) ---
-alias gn73='5250ng -s GN73 --enable-mcp-server --mcp-server-port 9250'
+alias gn73='(nohup 5250ng -s GN73 --enable-mcp-server --mcp-server-port 9250 >/dev/null 2>&1 &)'
 
 
