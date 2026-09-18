@@ -97,13 +97,6 @@ if command -v notify-send >/dev/null 2>&1 && { [ -n "$DISPLAY" ] || [ -n "$WAYLA
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history | tail -n1 | sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 fi
 
-# --- LibreOffice en Modo Claro (silenciado y en segundo plano) ---
-if command -v libreoffice >/dev/null 2>&1; then
-  libre() {
-    GTK_THEME=Adwaita:light libreoffice "$@" >/dev/null 2>&1 &
-    disown 2>/dev/null || true
-  }
-fi
 
 # --- AS/400 (IBM i) 5250 Emulator ---
 if command -v tn5250 >/dev/null 2>&1; then
