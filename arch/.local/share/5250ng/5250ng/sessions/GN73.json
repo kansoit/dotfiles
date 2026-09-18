@@ -1,0 +1,11 @@
+{
+    "codePage": 37,
+    "deviceType": "IBM-3179-2",
+    "hostname": "192.168.73.154",
+    "name": "GN73",
+    "port": 23,
+    "screenCols": 80,
+    "screenRows": 24,
+    "terminalTheme": "modern_dark",
+    "useTLS": false
+}

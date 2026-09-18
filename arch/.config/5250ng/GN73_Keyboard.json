@@ -1,0 +1,252 @@
+{
+    "entries": [
+        {
+            "action": "PF11",
+            "chord": "F11"
+        },
+        {
+            "action": "PF23",
+            "chord": "Shift+F11"
+        },
+        {
+            "action": "PF2",
+            "chord": "F2"
+        },
+        {
+            "action": "PF14",
+            "chord": "Shift+F2"
+        },
+        {
+            "action": "RollUp",
+            "chord": "PgUp"
+        },
+        {
+            "action": "PF23",
+            "chord": "F23"
+        },
+        {
+            "action": "Enter",
+            "chord": "Enter"
+        },
+        {
+            "action": "PF13",
+            "chord": "F13"
+        },
+        {
+            "action": "End",
+            "chord": "End"
+        },
+        {
+            "action": "PF8",
+            "chord": "F8"
+        },
+        {
+            "action": "PF20",
+            "chord": "Shift+F8"
+        },
+        {
+            "action": "FieldExit",
+            "chord": "Ctrl+End"
+        },
+        {
+            "action": "PF12",
+            "chord": "F12"
+        },
+        {
+            "action": "PF3",
+            "chord": "F3"
+        },
+        {
+            "action": "PF15",
+            "chord": "Shift+F3"
+        },
+        {
+            "action": "PF24",
+            "chord": "Shift+F12"
+        },
+        {
+            "action": "FieldMinus",
+            "chord": "Alt+-"
+        },
+        {
+            "action": "PF10",
+            "chord": "F10"
+        },
+        {
+            "action": "PF6",
+            "chord": "F6"
+        },
+        {
+            "action": "PF18",
+            "chord": "Shift+F6"
+        },
+        {
+            "action": "PF22",
+            "chord": "Shift+F10"
+        },
+        {
+            "action": "Tab",
+            "chord": "Tab"
+        },
+        {
+            "action": "BackTab",
+            "chord": "Shift+Tab"
+        },
+        {
+            "action": "PF4",
+            "chord": "F4"
+        },
+        {
+            "action": "PF16",
+            "chord": "Shift+F4"
+        },
+        {
+            "action": "ArrowUp",
+            "chord": "Up"
+        },
+        {
+            "action": "PF18",
+            "chord": "F18"
+        },
+        {
+            "action": "PF19",
+            "chord": "F19"
+        },
+        {
+            "action": "PF20",
+            "chord": "F20"
+        },
+        {
+            "action": "PF9",
+            "chord": "F9"
+        },
+        {
+            "action": "PF21",
+            "chord": "Shift+F9"
+        },
+        {
+            "action": "Home",
+            "chord": "Home"
+        },
+        {
+            "action": "ArrowDown",
+            "chord": "Down"
+        },
+        {
+            "action": "ArrowLeft",
+            "chord": "Left"
+        },
+        {
+            "action": "Enter",
+            "chord": "Return"
+        },
+        {
+            "action": "Delete",
+            "chord": "Del"
+        },
+        {
+            "action": "EraseEOF",
+            "chord": "Ctrl+Del"
+        },
+        {
+            "action": "RollDown",
+            "chord": "PgDown"
+        },
+        {
+            "action": "EraseInput",
+            "chord": "Alt+Del"
+        },
+        {
+            "action": "PF14",
+            "chord": "F14"
+        },
+        {
+            "action": "PF21",
+            "chord": "F21"
+        },
+        {
+            "action": "ArrowRight",
+            "chord": "Right"
+        },
+        {
+            "action": "PF16",
+            "chord": "F16"
+        },
+        {
+            "action": "PF15",
+            "chord": "F15"
+        },
+        {
+            "action": "Insert",
+            "chord": "Ins"
+        },
+        {
+            "action": "Dup",
+            "chord": "Shift+Ins"
+        },
+        {
+            "action": "PF24",
+            "chord": "F24"
+        },
+        {
+            "action": "PF22",
+            "chord": "F22"
+        },
+        {
+            "action": "Backspace",
+            "chord": "Backspace"
+        },
+        {
+            "action": "EraseField",
+            "chord": "Ctrl+Backspace"
+        },
+        {
+            "action": "FieldPlus",
+            "chord": "Alt++"
+        },
+        {
+            "action": "FieldExit",
+            "chord": "+"
+        },
+        {
+            "action": "Attn",
+            "chord": "Ctrl+Esc"
+        },
+        {
+            "action": "PF5",
+            "chord": "F5"
+        },
+        {
+            "action": "PF17",
+            "chord": "Shift+F5"
+        },
+        {
+            "action": "BackTab",
+            "chord": "Backtab"
+        },
+        {
+            "action": "PF17",
+            "chord": "F17"
+        },
+        {
+            "action": "PF1",
+            "chord": "F1"
+        },
+        {
+            "action": "PF13",
+            "chord": "Shift+F1"
+        },
+        {
+            "action": "PF7",
+            "chord": "F7"
+        },
+        {
+            "action": "PF19",
+            "chord": "Shift+F7"
+        },
+        {
+            "action": "SysReq",
+            "chord": "SysReq"
+        }
+    ]
+}
