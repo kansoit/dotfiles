@@ -111,7 +111,7 @@ if command -v tn5250 >/dev/null 2>&1; then
       return 1
     fi
     foot -d none -a as400 -T "GN73" \
-      -f "Fira Mono:size=18" \
+      -f "monospace:size=18" \
       -W 80x24 \
       -o 'text-bindings.\x0b=KP_Add' \
       tn5250 gn73 "$@" 2>/dev/null &
