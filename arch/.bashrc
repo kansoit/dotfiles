@@ -3,7 +3,7 @@
 
 # User bin path (needed for all shells, interactive and non-interactive login)
 case ":$PATH:" in
-  "$HOME/.local/bin:"*) ;;
+  *":$HOME/.local/bin:"*) ;;
   *) export PATH="$HOME/.local/bin:$PATH" ;;
 esac
 
@@ -41,6 +41,3 @@ for config in "$HOME/.config/shell/"*.sh; do
   [ -r "$config" ] && source "$config"
 done
 unset config
-
-# Added by Antigravity CLI installer
-export PATH="/home/hrosende/.local/bin:$PATH"

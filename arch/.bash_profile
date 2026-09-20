@@ -3,7 +3,3 @@
 #
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/hrosende/.local/bin:$PATH"
