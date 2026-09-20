@@ -114,14 +114,26 @@ md2pdf() {
   while [ $# -gt 0 ]; do
     case "$1" in
       -o|--output)
+        if [ $# -lt 2 ] || [ -z "$2" ] || [[ "$2" == -* ]]; then
+          echo "Error: $1 requiere un archivo de salida."
+          return 2
+        fi
         output="$2"
         shift 2
         ;;
       -f|--font)
+        if [ $# -lt 2 ] || [ -z "$2" ] || [[ "$2" == -* ]]; then
+          echo "Error: $1 requiere una fuente."
+          return 2
+        fi
         font="$2"
         shift 2
         ;;
       -s|--size)
+        if [ $# -lt 2 ] || [ -z "$2" ] || [[ "$2" == -* ]]; then
+          echo "Error: $1 requiere un tamaño."
+          return 2
+        fi
         fontsize="$2"
         shift 2
         ;;
@@ -129,19 +141,27 @@ md2pdf() {
         extra_args+=("$1")
         shift
         ;;
-    esac
+      esac
   done
 
-  pandoc "$input" -o "$output" \
+  if ! command -v pandoc >/dev/null 2>&1 || ! command -v typst >/dev/null 2>&1; then
+    echo "Error: md2pdf requiere pandoc y typst."
+    return 127
+  fi
+
+  if ! pandoc "$input" -o "$output" \
     --pdf-engine=typst \
     -V mainfont="$font" \
     -V fontsize="$fontsize" \
     -V margin-x=2cm \
     -V margin-y=2.5cm \
     -V papersize=a4 \
-    "${extra_args[@]}"
+    "${extra_args[@]}"; then
+    echo "Error: no se pudo generar el PDF."
+    return 1
+  fi
 
-  echo "✓ PDF generado en <0.2s: $output (Fuente: $font, $fontsize)"
+  echo "✓ PDF generado: $output (Fuente: $font, $fontsize)"
 }
 
 # --- Navegación inteligente (cd + zoxide) ---
