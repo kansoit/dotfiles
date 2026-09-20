@@ -27,6 +27,11 @@ man() {
 fp() {
   export EZA_COLORS="op=0:da=0:ur=0:uw=0:ux=0:ue=0:gr=0:gw=0:gx=0:tr=0:tw=0:tx=0:sn=0:sb=0:df=0:ds=0:uu=0:gu=0:un=0:gn=0:lc=0:ga=0:gm=0:gd=0:gv=0:gt=0:xx=0"
 
+  if ! command -v eza >/dev/null 2>&1 || ! command -v fzf >/dev/null 2>&1; then
+    echo "Error: fp requiere eza y fzf."
+    return 127
+  fi
+
   local target="${1:-.}"
 
   if [ ! -e "$target" ]; then
@@ -50,7 +55,11 @@ fp() {
       tput smkx 2>/dev/null
     fi
 
-    eza -lag --git --octal-permissions --header --group-directories-first --time-style=long-iso --color=always $eza_target | \
+    local eza_args=(-lag --git --octal-permissions --header --group-directories-first
+      --time-style=long-iso --color=always)
+    [ -n "$eza_target" ] && eza_args+=("$eza_target")
+
+    eza "${eza_args[@]}" | \
     fzf --ansi \
       --header-lines=1 \
       --layout=reverse \
