@@ -1,5 +1,19 @@
 # ~/.config/shell/functions.sh - Funciones compartidas para Bash y Zsh
 
+# MC: conservar el directorio al salir y evitar acceso a X11 como root.
+# Retirar el alias anterior también al recargar una sesión ya abierta.
+unalias mc 2>/dev/null || true
+mc() {
+  if (( EUID == 0 )); then
+    set -- -X "$@"
+  fi
+  if [ -r /usr/lib/mc/mc-wrapper.sh ]; then
+    . /usr/lib/mc/mc-wrapper.sh
+  else
+    command mc "$@"
+  fi
+}
+
 # Páginas de manual coloreadas con bat
 man() {
   if command -v col >/dev/null 2>&1 && command -v bat >/dev/null 2>&1; then
