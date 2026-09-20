@@ -26,6 +26,15 @@ if command -v dua >/dev/null 2>&1; then
   alias ncdu='sudo dua i / -i /mnt'
 fi
 
+# Uso de nmon 
+if command -v nmon >/dev/null 2>&1; then
+  if command -v ghostty >/dev/null 2>&1; then
+    alias nmon='ghostty --font-size=10 -e env NMON=cdnm nmon'
+  else
+    alias nmon='env NMON=cdnm nmon'
+  fi
+fi
+
 # --- Historial interactivo ---
 if [ -n "$ZSH_VERSION" ]; then
   alias ht="history 1"
