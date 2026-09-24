@@ -1,0 +1,103 @@
+add_newline = false
+command_timeout = 1000
+
+format = """
+(bold green)$username${custom.local_hostname}${custom.ssh_hostname}$directory$git_branch$git_state$git_status$python$shell$shlvl$fill$status$sudo$cmd_duration$jobs$time
+[#](bold green) """
+
+[fill]
+symbol = " "
+
+[line_break]
+disabled = false
+
+[cmd_duration]
+format = "[$duration](bold yellow) "
+disabled = false
+
+[status]
+symbol = "[✗](bold red)"
+success_symbol = "[√](bold green)"
+format = '[$symbol]($style) '
+disabled = false
+
+[shell]
+disabled = false
+format = "[$indicator]($style):"
+
+[directory]
+disabled = false
+format = ":[$path]($style) "
+style = "bold blue"
+truncation_length = 4
+truncation_symbol = ""
+
+[git_branch]
+disabled = false
+always_show_remote = true
+format = "[$symbol$branch]($style) "
+style = "bold yellow"
+symbol = ""
+
+[git_commit]
+disabled = false
+commit_hash_length = 5
+format = "[$hash]($style)[$tag]($style)"
+only_detached = false
+style = "bold yellow"
+
+[git_status]
+disabled = false
+style = "bold yellow"
+format = "[$all_status$ahead_behind]($style)"
+ahead = '↑$count '
+behind = '↓$count '
+conflicted = '=$count '
+deleted = '✗$count '
+diverged = '⇕$count '
+modified = '!$count '
+renamed = '»$count '
+staged = '+$count '
+stashed = '\$$count '
+untracked = '?$count '
+up_to_date = '✓$count '
+
+[custom.local_hostname]
+command = "hostname -s"
+when = 'test -z "$SSH_CONNECTION"'
+format = "[@$output](green bold)"
+
+[custom.ssh_hostname]
+command = "hostname -s"
+when = 'test -n "$SSH_CONNECTION"'
+format = "[@$output](yellow bold)"
+
+[username]
+disabled = false
+format = "[$user]($style)"
+show_always = true
+style_root = "red bold"
+style_user = "green bold"
+
+[python]
+format = "[$symbol$version]($style) "
+style = "bold green"
+
+[sudo]
+format = "[$symbol]($style) "
+symbol = "S↑" 
+style = "bold red"
+disabled = false
+
+[shlvl]
+threshold = 1
+repeat = false
+style = "bold yellow"
+format = "[$shlvl]($style)"
+disabled = false
+
+[time]
+disabled = false
+style = "bold white"
+format = "[$time]($style)"
+time_format = "%T"

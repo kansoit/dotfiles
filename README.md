@@ -8,7 +8,7 @@ Repositorio centralizado de configuraciones de shell (Bash, Zsh), prompts (Stars
 
 ```text
 dotfiles/
-├── arch/                  # Configuraciones para Arch Linux / Omarchy
+├── arch/                  # Configuraciones para Arch Linux / Omarchy (Notebook de trabajo)
 │   ├── .bash_profile
 │   ├── .bashrc
 │   ├── .bash_logout
@@ -18,15 +18,53 @@ dotfiles/
 │       └── shell/
 │           ├── aliases.sh
 │           ├── env.sh
-│           └── functions.sh (incluye fp, hts, md2pdf)
-├── debian/                # Configuraciones para Debian / Ubuntu / Proxmox
-└── rhel/                  # Configuraciones para RHEL / Rocky / Fedora
+│           └── functions.sh
+├── debian/                # Configuraciones para Debian 12/13, Ubuntu y Proxmox (Laboratorio)
+│   ├── .bash_profile
+│   ├── .bashrc
+│   ├── .bash_logout
+│   ├── .zshrc
+│   └── .config/
+│       ├── starship.toml
+│       └── shell/
+│           ├── aliases.sh
+│           ├── env.sh
+│           └── functions.sh
+└── rhel/                  # Configuraciones para RHEL, Rocky Linux 9 y Fedora 44
+    ├── .bash_profile
+    ├── .bashrc
+    ├── .bash_logout
+    ├── .zshrc
+    └── .config/
+        ├── starship.toml
+        └── shell/
+            ├── aliases.sh
+            ├── env.sh
+            └── functions.sh
 ```
 
 ---
 
 ## 🚀 Componentes Destacados
-- **Bash & Zsh Modulares:** Ambos shells cargan `~/.config/shell/*.sh` para compartir alias, variables y funciones.
-- **Explorador Interactivo `fp`:** Navegación ultra-rápida con `eza` + `fzf` + `bat`, con soporte para archivos con espacios, git y symlinks.
-- **Historial Interactivo `hts`:** Búsqueda difusa de comandos en tiempo real.
-- **Starship Prompt:** Prompt moderno, rápido e informativo.
+- **Bash & Zsh Modulares:** Ambos shells cargan de forma limpia e independiente `~/.config/shell/*.sh` para compartir alias, variables y funciones.
+- **Explorador Interactivo `fp`:** Navegación ultra-rápida con `eza` + `fzf` + `bat`/`batcat`, con soporte para nombres de archivo con espacios, estado git y enlaces simbólicos.
+- **Historial Interactivo `hts`:** Búsqueda difusa (`fzf`) de comandos en tiempo real.
+- **Starship Prompt:** Prompt unificado, ultrarrápido y coherente en todas las distribuciones.
+- **Adaptaciones por Familia de Distribución:**
+  - `arch/`: Integrado con el ecosistema Omarchy de la notebook de trabajo.
+  - `debian/`: Soporte nativo para nombres de binarios en Debian (`batcat`, `fdfind`), plugins en `~/.zsh/` o `/usr/share/zsh-*`, y herramientas de laboratorio (`docker`, `podman`, `microk8s`, `pre-commit`, etc.).
+  - `rhel/`: Binarios estándar `bat` y `fd`, alias dedicados para `dnf`, y compatibilidad completa con Rocky 9, Oracle Linux y Fedora 44.
+
+---
+
+## 🛠️ Despliegue con Ansible
+
+La distribución de estos dotfiles hacia la flota se realiza de forma automatizada e idempotente a través del repositorio de automatización:
+
+```bash
+# Sincronizar dotfiles en hosts Debian (ej: docker, pve, npm, etc.)
+bin/run_playbook.sh dotfiles_sync linux_debian
+
+# Sincronizar dotfiles en hosts RHEL / Rocky / Fedora
+bin/run_playbook.sh dotfiles_sync linux_rhel
+```

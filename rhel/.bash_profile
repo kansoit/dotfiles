@@ -1,0 +1,5 @@
+# ~/.bash_profile
+# shellcheck shell=bash
+
+# shellcheck source=/dev/null
+[[ -f ~/.bashrc ]] && . ~/.bashrc

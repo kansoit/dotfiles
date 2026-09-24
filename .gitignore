@@ -11,3 +11,7 @@
 
 # Archivos de sistema
 .DS_Store
+
+# Zsh compdump
+.zcompdump*
+*.zwc
