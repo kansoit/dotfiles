@@ -2,7 +2,7 @@ add_newline = false
 command_timeout = 1000
 
 format = """
-(bold green)$username$hostname$directory$git_branch$git_state$git_status$python$shell$shlvl$fill$status$sudo$cmd_duration$jobs$time
+(bold green)$username${custom.local_hostname}${custom.ssh_hostname}$directory$git_branch$git_state$git_status$python$shell$shlvl$fill$status$sudo$cmd_duration$jobs$time
 [#](bold green) """
 
 [fill]
@@ -62,11 +62,15 @@ stashed = '\$$count '
 untracked = '?$count '
 up_to_date = '✓$count '
 
-[hostname]
-disabled = false
-format = "[@$hostname]($style)"
-ssh_only = false
-style = "green bold"
+[custom.local_hostname]
+command = "hostname -s"
+when = 'test -z "$SSH_CONNECTION"'
+format = "[@$output](green bold)"
+
+[custom.ssh_hostname]
+command = "hostname -s"
+when = 'test -n "$SSH_CONNECTION"'
+format = "[@$output](yellow bold)"
 
 [username]
 disabled = false
