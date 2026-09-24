@@ -43,3 +43,19 @@ if [ -n "${BASH_VERSION:-}" ] && [ -s "$NVM_DIR/bash_completion" ]; then
   # shellcheck source=/dev/null
   . "$NVM_DIR/bash_completion"
 fi
+
+# --- Microsoft SQL Server Tools (sqlcmd, bcp) ---
+for mssql_dir in "/opt/mssql-tools18/bin" "/opt/mssql-tools/bin"; do
+  if [ -d "$mssql_dir" ]; then
+    case ":$PATH:" in
+      *":$mssql_dir:"*) ;;
+      *) export PATH="$PATH:$mssql_dir" ;;
+    esac
+  fi
+done
+
+# --- Docker CLI redirigido al socket rootless de Podman ---
+if [ -z "${DOCKER_HOST:-}" ] && [ -S "/run/user/${UID:-1000}/podman/podman.sock" ];
+  then
+    export DOCKER_HOST="unix:///run/user/${UID:-1000}/podman/podman.sock"
+fi
