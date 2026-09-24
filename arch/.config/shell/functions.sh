@@ -1,4 +1,5 @@
 # ~/.config/shell/functions.sh - Funciones compartidas para Bash y Zsh
+# shellcheck shell=bash
 
 # MC: conservar el directorio al salir y evitar acceso a X11 como root.
 # Retirar el alias anterior también al recargar una sesión ya abierta.
@@ -8,6 +9,7 @@ mc() {
     set -- -X "$@"
   fi
   if [ -r /usr/lib/mc/mc-wrapper.sh ]; then
+    # shellcheck source=/dev/null
     . /usr/lib/mc/mc-wrapper.sh
   else
     command mc "$@"
@@ -49,8 +51,8 @@ fp() {
       local eza_target=""
     fi
 
-    if [ -n "$ZSH_VERSION" ]; then
-      [[ -n "$terminfo[smkx]" ]] && echoti smkx
+    if [ -n "${ZSH_VERSION:-}" ]; then
+      echoti smkx 2>/dev/null || tput smkx 2>/dev/null
     else
       tput smkx 2>/dev/null
     fi
@@ -59,6 +61,7 @@ fp() {
       --time-style=long-iso --color=always)
     [ -n "$eza_target" ] && eza_args+=("$eza_target")
 
+    # shellcheck disable=SC2016
     eza "${eza_args[@]}" | \
     fzf --ansi \
       --header-lines=1 \
@@ -83,8 +86,8 @@ fp() {
         fi
       ' --preview-window 'right:60%'
 
-    if [ -n "$ZSH_VERSION" ]; then
-      [[ -n "$terminfo[rmkx]" ]] && echoti rmkx
+    if [ -n "${ZSH_VERSION:-}" ]; then
+      echoti rmkx 2>/dev/null || tput rmkx 2>/dev/null
     else
       tput rmkx 2>/dev/null
     fi
@@ -184,3 +187,17 @@ if command -v zoxide >/dev/null 2>&1; then
     fi
   }
 fi
+
+# --- Búsqueda interactiva de comandos (Bash y Zsh) ---
+fcmd() {
+  if [ -z "$1" ]; then
+    echo "Uso: fcmd <término>" >&2
+    return 1
+  fi
+
+  if [ -n "${ZSH_VERSION:-}" ]; then
+    whence -m "*$1*" 2>/dev/null
+  else
+    compgen -c | grep -i -- "$1" | sort -u
+  fi
+}

@@ -214,3 +214,17 @@ if command -v terraform >/dev/null 2>&1; then
     complete -o nospace -C "$(command -v terraform)" terraform 2>/dev/null || true
   fi
 fi
+
+# --- Búsqueda interactiva de comandos (Bash y Zsh) ---
+fcmd() {
+  if [ -z "$1" ]; then
+    echo "Uso: fcmd <término>" >&2
+    return 1
+  fi
+
+  if [ -n "${ZSH_VERSION:-}" ]; then
+    whence -m "*$1*" 2>/dev/null
+  else
+    compgen -c | grep -i -- "$1" | sort -u
+  fi
+}
