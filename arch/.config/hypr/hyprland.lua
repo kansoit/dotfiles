@@ -27,4 +27,10 @@ require("default.hypr.toggles")
 
 -- Add any other personal Hyprland configuration below.
 
+-- Ventanas de draw.io (setup-drawio.sh).
+require("hypr.drawio")
 
+
+
+-- Reglas de ventanas del sistema y dialogos (draw.io, DBeaver, OnlyOffice)
+require("hypr.system")
