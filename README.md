@@ -15,6 +15,11 @@ dotfiles/
 │   ├── .zshrc
 │   └── .config/
 │       ├── starship.toml
+│       ├── ghostty/
+│       │   └── config
+│       ├── omarchy/
+│       │   └── themed/
+│       │       └── ghostty.conf.tpl
 │       └── shell/
 │           ├── aliases.sh
 │           ├── env.sh
@@ -26,6 +31,8 @@ dotfiles/
 │   ├── .zshrc
 │   └── .config/
 │       ├── starship.toml
+│       ├── ghostty/
+│       │   └── config
 │       └── shell/
 │           ├── aliases.sh
 │           ├── env.sh
@@ -37,6 +44,8 @@ dotfiles/
     ├── .zshrc
     └── .config/
         ├── starship.toml
+        ├── ghostty/
+        │   └── config
         └── shell/
             ├── aliases.sh
             ├── env.sh
@@ -46,6 +55,8 @@ dotfiles/
 ---
 
 ## 🚀 Componentes Destacados
+- **Terminal Ghostty:** Configuración unificada con splits semitransparentes (`unfocused-split-opacity = 0.88`), cursor en bloque sólido relleno y atajos de teclado CSI-u.
+- **Integración con Temas Omarchy (Arch):** Plantilla dinámica (`ghostty.conf.tpl`) sincronizada con el selector de temas, contraste optimizado de selección invertida (`selection-background = {{ accent }}`, `selection-foreground = {{ background }}`) y divisor de splits acentuado.
 - **Bash & Zsh Modulares:** Ambos shells cargan de forma limpia e independiente `~/.config/shell/*.sh` para compartir alias, variables y funciones.
 - **Explorador Interactivo `fp`:** Navegación ultra-rápida con `eza` + `fzf` + `bat`/`batcat`, con soporte para nombres de archivo con espacios, estado git y enlaces simbólicos.
 - **Historial Interactivo `hts`:** Búsqueda difusa (`fzf`) de comandos en tiempo real.

@@ -1,0 +1,62 @@
+# Dynamic theme colors (Preservado de Omarchy para mutación de temas)
+config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+
+# --- Font (Personalizado por usuario) ---
+font-size = 12
+# Opciones de fuente originales de Omarchy (respaldo):
+# font-family = "JetBrainsMono Nerd Font"
+font-style = Regular
+# font-size = 9
+
+# --- Window / Layout ---
+# window-theme = ghostty
+window-theme = system
+window-subtitle = working-directory
+window-padding-x = 18
+window-padding-y = 14
+window-padding-balance = true
+confirm-close-surface = false
+resize-overlay = never
+gtk-toolbar-style = flat
+window-decoration = auto
+
+# --- Look & Transparencia ---
+background-opacity = 0.95
+
+# --- Splits / Multiplexing ---
+unfocused-split-opacity = 0.88
+
+# --- Cursor styling (Bloque sólido relleno) ---
+cursor-style = block
+cursor-style-blink = false
+cursor-opacity = 1
+
+# --- Shell Integration & Features ---
+shell-integration = detect
+shell-integration-features = ssh-terminfo,ssh-env,no-cursor,sudo
+
+# --- UX / Safety ---
+scrollback-limit = 20000
+clipboard-paste-protection = true
+clipboard-paste-bracketed-safe = true
+
+# --- Process / Lifecycle ---
+quit-after-last-window-closed = false
+
+# --- Keyboard bindings (Omarchy CSI-u + Window splits) ---
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+# Send Shift+Enter as CSI-u so TUIs can distinguish it from Enter.
+keybind = shift+enter=csi:13;2u
+# Legacy encoding sends Alt+Shift+Enter the same as Alt+Enter; send CSI-u so tmux can match M-S-Enter.
+keybind = alt+shift+enter=csi:13;4u
+keybind = super+control+shift+alt+arrow_down=resize_split:down,100
+keybind = super+control+shift+alt+arrow_up=resize_split:up,100
+keybind = super+control+shift+alt+arrow_left=resize_split:left,100
+keybind = super+control+shift+alt+arrow_right=resize_split:right,100
+
+# --- Calibrate mouse wheel scrolling speed (lines per notch) ---
+mouse-scroll-multiplier = precision:1.5,discrete:4
+
+# --- Performance Fix for Hyprland ---
+async-backend = epoll
