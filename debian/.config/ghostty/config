@@ -1,15 +1,18 @@
-# Dynamic theme colors (Preservado de Omarchy para mutación de temas)
-config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+# --- Theme & Colors (Autónomo / Standalone) ---
+theme = TokyoNight
+selection-background = #7aa2f7
+selection-foreground = #1a1b26
+split-divider-color = #7aa2f7
 
-# --- Font (Personalizado por usuario) ---
+# Legibilidad de texto y archivos atenuados (.bak)
+palette = 7=#b4bee6
+palette = 8=#565f89
+
+# --- Font ---
 font-size = 12
-# Opciones de fuente originales de Omarchy (respaldo):
-# font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
-# font-size = 9
 
 # --- Window / Layout ---
-# window-theme = ghostty
 window-theme = system
 window-subtitle = working-directory
 window-padding-x = 18
@@ -43,20 +46,15 @@ clipboard-paste-bracketed-safe = true
 # --- Process / Lifecycle ---
 quit-after-last-window-closed = false
 
-# --- Keyboard bindings (Omarchy CSI-u + Window splits) ---
+# --- Keyboard bindings (CSI-u + Window splits) ---
 keybind = shift+insert=paste_from_clipboard
 keybind = control+insert=copy_to_clipboard
-# Send Shift+Enter as CSI-u so TUIs can distinguish it from Enter.
 keybind = shift+enter=csi:13;2u
-# Legacy encoding sends Alt+Shift+Enter the same as Alt+Enter; send CSI-u so tmux can match M-S-Enter.
 keybind = alt+shift+enter=csi:13;4u
 keybind = super+control+shift+alt+arrow_down=resize_split:down,100
 keybind = super+control+shift+alt+arrow_up=resize_split:up,100
 keybind = super+control+shift+alt+arrow_left=resize_split:left,100
 keybind = super+control+shift+alt+arrow_right=resize_split:right,100
 
-# --- Calibrate mouse wheel scrolling speed (lines per notch) ---
+# --- Calibrate mouse wheel scrolling speed ---
 mouse-scroll-multiplier = precision:1.5,discrete:4
-
-# --- Performance Fix for Hyprland ---
-async-backend = epoll
