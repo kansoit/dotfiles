@@ -69,6 +69,15 @@ if command -v bat >/dev/null 2>&1; then
   alias bcat="bat -p -p"
 fi
 
+# --- Visores Markdown (Glow & See) ---
+if command -v see >/dev/null 2>&1; then
+  alias see='see --page=true'
+fi
+
+if command -v glow >/dev/null 2>&1; then
+  alias glow='glow -n -p'
+fi
+
 # --- Git ---
 if command -v git >/dev/null 2>&1; then
   alias gst='git status -sb'

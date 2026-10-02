@@ -33,6 +33,15 @@ if [ -n "$_BAT_BIN" ]; then
   alias bcat="$_BAT_BIN -p -p"
 fi
 
+# --- Visores Markdown (Glow & See) ---
+if command -v see >/dev/null 2>&1; then
+  alias see='see --page=true'
+fi
+
+if command -v glow >/dev/null 2>&1; then
+  alias glow='glow -n -p'
+fi
+
 # --- Eza (Modern ls con iconos y git) ---
 if command -v eza >/dev/null 2>&1; then
   alias ls='eza -lh --group-directories-first --icons=auto'
