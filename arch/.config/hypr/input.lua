@@ -1,4 +1,4 @@
--- Antigravity Input Setup
+-- Custom Input Setup
 -- Keep only your personal input overrides here.
 -- Loaded after Omarchy's default (/usr/share/omarchy/default/hypr/input.lua)
 
