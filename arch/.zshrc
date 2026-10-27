@@ -1,12 +1,9 @@
 # ~/.zshrc - Configuración de Zsh integrada con Omarchy / Arch Linux
 
 # --- Bootstrap de entorno Omarchy (Mise, PATH base) ---
+# env-bootstrap agrega ~/.local/bin al final del PATH, igual que en la sesión
+# gráfica: los comandos del sistema y de Omarchy tienen prioridad.
 [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && emulate sh -c 'source /usr/share/omarchy/default/bash/env-bootstrap'
-
-case ":$PATH:" in
-  "$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
 
 # --- Historial ---
 HISTFILE=~/.zsh_history

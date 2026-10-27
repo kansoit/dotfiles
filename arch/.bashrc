@@ -1,11 +1,6 @@
-# Omarchy environment (OMARCHY_PATH + PATH), needed even for non-interactive shells
+# Omarchy environment (OMARCHY_PATH + PATH), needed even for non-interactive shells.
+# It appends ~/.local/bin, so system and Omarchy commands keep precedence.
 [[ -r /usr/share/omarchy/default/bash/env-bootstrap ]] && source /usr/share/omarchy/default/bash/env-bootstrap
-
-# User bin path (needed for all shells, interactive and non-interactive login)
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
 
 # If not running interactively, don't do anything else (leave this above the rc source)
 [[ $- != *i* ]] && return
