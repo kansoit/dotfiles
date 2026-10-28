@@ -201,3 +201,12 @@ fcmd() {
     compgen -c | grep -i -- "$1" | sort -u
   fi
 }
+
+# Claude Code: si se lanza desde $HOME, usar ~/work como directorio de trabajo
+# para que sesiones e historial queden juntos (como en Herdr)
+claude() {
+  if [ "$PWD" = "$HOME" ]; then
+    mkdir -p "$HOME/work" && cd "$HOME/work" || return
+  fi
+  command claude "$@"
+}
