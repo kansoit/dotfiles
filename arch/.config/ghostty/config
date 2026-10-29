@@ -36,7 +36,7 @@ shell-integration = detect
 shell-integration-features = ssh-terminfo,ssh-env,no-cursor,sudo
 
 # --- UX / Safety ---
-scrollback-limit = 250000000
+scrollback-limit-bytes = 250000000
 clipboard-paste-protection = true
 clipboard-paste-bracketed-safe = true
 
