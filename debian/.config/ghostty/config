@@ -21,7 +21,8 @@ window-padding-balance = true
 confirm-close-surface = false
 resize-overlay = never
 gtk-toolbar-style = flat
-window-decoration = auto
+# Xfce/X11: la barra la dibuja xfwm4 (la de GTK queda transparente con la AppImage)
+window-decoration = server
 
 # --- Look & Transparencia ---
 background-opacity = 0.95
