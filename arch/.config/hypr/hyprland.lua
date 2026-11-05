@@ -34,3 +34,17 @@ require("hypr.drawio")
 
 -- Reglas de ventanas del sistema y dialogos (draw.io, DBeaver, OnlyOffice)
 require("hypr.system")
+
+
+
+-- Bordes del scratchpad según el tema activo.
+require("hypr.scratchpad-borders")
+
+-- >>> omaland managed block >>>
+-- Written by Omaland. Safe to hand-edit: Omaland re-reads this block
+-- every time it opens, and only ever rewrites what's between the fences.
+o.window({ tag = "negative:default-opacity" }, { tag = "+omaland-opaque" })
+o.window({ tag = "chromium-based-browser" }, { tag = "-omaland-opaque" })
+o.window({ tag = "firefox-based-browser" }, { tag = "-omaland-opaque" })
+o.window({ tag = "omaland-opaque" }, { opacity = "1 override 1 override 1 override" })
+-- <<< omaland managed block <<<

@@ -48,3 +48,38 @@ hl.config({
 --     column_width = 0.97,
 --   },
 -- })
+
+-- >>> omaland managed block >>>
+-- Written by Omaland. Safe to hand-edit: Omaland re-reads this block
+-- every time it opens, and only ever rewrites what's between the fences.
+hl.config({
+  animations = {
+    enabled = false,
+  },
+
+  decoration = {
+    active_opacity = 0.9,
+    dim_inactive = false,
+    fullscreen_opacity = 0.9,
+    inactive_opacity = 0.8,
+
+    blur = {
+      contrast = 1,
+      enabled = true,
+      noise = 0.015,
+      passes = 2,
+      popups = true,
+      vibrancy = 0.2,
+    },
+
+    glow = {
+      enabled = false,
+    },
+  },
+})
+-- <<< omaland managed block <<<
+
+-- Opt another application in to Omarchy's standard transparency.
+-- Find its class with: hyprctl clients
+-- o.transparent_window("my-app")
+-- o.transparent_window("my-app", "0.9 0.85") -- Custom active/inactive opacity.

@@ -36,3 +36,20 @@ o.bind("SUPER + SHIFT + X", "Mastodon", { webapp = "https://mastodon.social/deck
 -- Vivaldi Browser
 o.bind("SUPER + SHIFT + V", "Vivaldi", { launch = "vivaldi", focus = "^Vivaldi$" })
 
+-- Obsidian Search (Omarchy shell overlay)
+o.bind("SUPER + ALT + O", "Obsidian Search", "omarchy-shell shell summon bibek.obsidian-search")
+
+
+-- Claude Desktop (reemplaza ChatGPT webapp de Omarchy)
+hl.unbind("SUPER + SHIFT + A")
+o.bind("SUPER + SHIFT + A", "Claude", { launch = "claude-desktop", focus = "^com.anthropic.Claude$" })
+
+-- Herdr UI
+o.bind("SUPER + SHIFT + H", "Herdr UI", { launch = "herdr-gpui", focus = "^so.pen.herdr-gpui$" })
+
+-- Dictation keys from before Alt + Space and Right Alt became the defaults.
+-- Remove these lines to give the keys back to applications.
+if o.dictation_installed and o.dictation_installed() then
+  o.bind("SUPER + CTRL + X", "Toggle dictation", "omarchy-dictation toggle")
+  o.bind_hold("F9", "Start dictation (push-to-talk)", "omarchy-dictation start", "Stop dictation (push-to-talk)", "omarchy-dictation stop")
+end
