@@ -52,6 +52,8 @@ dotfiles/
             └── functions.sh
 ```
 
+> La configuración de Hyprland (`~/.config/hypr/`) no vive en este repositorio: la generan los scripts idempotentes de `~/gitea/scripts/omarchy/` (`setup-hyprland-*.sh`, `setup-*-binding.sh`, etc.). La disposición de monitores la mantiene el plugin Better Displays Pro.
+
 ---
 
 ## 🚀 Componentes Destacados
