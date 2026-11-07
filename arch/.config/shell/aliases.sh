@@ -121,3 +121,9 @@ fi
 
 # --- AS/400 (IBM i) 5250 Emulator (5250ng) ---
 alias gn73='(nohup 5250ng -s GN73 --enable-mcp-server --mcp-server-port 9250 >/dev/null 2>&1 &)'
+
+# --- Claude Code ---
+# cl  = sesión normal; clt = con el canal de Telegram (@KansoITBot, noticias de PPI)
+# Ambos admiten argumentos extra, p. ej.: clt --resume <id>
+alias cl='claude'
+alias clt='claude --channels plugin:telegram@claude-plugins-official'
