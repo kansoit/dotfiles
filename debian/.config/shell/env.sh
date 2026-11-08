@@ -33,13 +33,3 @@ fi
 # Colores para compilador GCC
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# Node Version Manager (NVM)
-export NVM_DIR="$HOME/.nvm"
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-  # shellcheck source=/dev/null
-  . "$NVM_DIR/nvm.sh"
-fi
-if [ -n "${BASH_VERSION:-}" ] && [ -s "$NVM_DIR/bash_completion" ]; then
-  # shellcheck source=/dev/null
-  . "$NVM_DIR/bash_completion"
-fi
